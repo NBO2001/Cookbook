@@ -14,7 +14,7 @@ public class Conect {
         try{
             con = DriverManager.getConnection("jdbc:sqlite::resource:"
             + Home.class.getResource("/recipesbase.db"));
-           // System.out.println("Funcionaou!!!");
+            System.out.println("Entou");
         }catch(Exception e){
             e.printStackTrace();
         }

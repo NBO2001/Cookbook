@@ -1,22 +1,23 @@
 package controller;
 
 import model.SelectDB;
+import tools.ListArm;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerSelect {
 
-    public boolean selectEver(){
-
+    public List<ListArm> selectEver(){
+        List<ListArm> listS = null;
         try{
             SelectDB selc = new SelectDB();
-            System.out.println(selc.getEver().size());
+            listS = selc.getEver();
 
         }catch(Exception e){
             System.out.println("Erro");
         }
 
-        return true;
+        return listS;
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import tools.ListArm;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +15,16 @@ public class SelectDB {
 
     public SelectDB() throws SQLException {
 
+        openConeccton();
+
+    }
+
+    public void openConeccton(){
+
         try{
 
             con = Conect.getInstance().getConnetion();
+
             System.out.println("Conectou");
 
 
@@ -26,8 +35,9 @@ public class SelectDB {
         }
     }
 
-    public List<String> getEver(){
-        List<String> data = new ArrayList<>();
+    public List<ListArm> getEver(){
+
+        List<ListArm> data = new ArrayList<>();
 
         try{
             Statement stm = con.createStatement();
@@ -37,22 +47,34 @@ public class SelectDB {
             ResultSet valuesQ = stm.executeQuery(query);
 
             while (valuesQ.next()){
-                data.add(valuesQ.getString(2));
+
+                ListArm vals = new ListArm();
+
+                vals.setId(valuesQ.getInt(1));
+
+                vals.setNomeRecive(valuesQ.getString(2));
+
+                data.add(vals);
             }
 
-        }catch(Exception e){
-            System.out.println("Erro ao excutar o sql");
+        }catch(SQLException e){
+            System.out.println("Erro ao excutar o sql " + e);
         }
+        closeConec(con);
 
+        return data;
+    }
+
+    public void closeConec(Connection con){
 
         try {
-            con.close();
-            System.out.println("Fechou!!");
+           // con.close();
+            System.out.println("Implementar o fechamento!!");
         }catch(Exception e){
             System.out.println("Erro ao fechar coneção");
         }
-        return data;
     }
+
 
 
 }
